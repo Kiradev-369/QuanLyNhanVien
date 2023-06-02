@@ -162,26 +162,88 @@ function capNhatNV() {
   var chucVu = getELE("chucvu").value;
   var gioLam = getELE("gioLam").value;
 
-  var nv = new NhanVien(
-    taiKhoan,
-    hoTen,
-    email,
-    matKhau,
-    ngayLam,
-    luongCoBan,
-    chucVu,
-    gioLam
-  );
-  nv.tinhTongLuong();
-  nv.xepLoaiNV();
+  var isValid = true;
 
-  var result = dsnv.capNhat(nv);
-  if (result) {
-    setLocalStorage();
-    hienThiTable(dsnv.mangNV);
-    resetForm();
-  } else {
-    alert("Cập nhật thất bại");
+  isValid &=
+    validation.checkEmpty(
+      taiKhoan,
+      "tbTKNV",
+      "Tài khoản không được để trống"
+    ) &&
+    validation.checkAccount(taiKhoan, "tbTKNV", "Tài khoản tối đa 4 - 6 ký số");
+
+  isValid &=
+    validation.checkEmpty(hoTen, "tbTen", "Tên không được để trống") &&
+    validation.checkName(hoTen, "tbTen", "Tên nhân viên phải là chữ");
+
+  isValid &=
+    validation.checkEmpty(email, "tbEmail", "Email không được để trống") &&
+    validation.checkEmail(email, "tbEmail", "Email chưa đúng định dạng");
+
+  isValid &=
+    validation.checkEmpty(
+      matKhau,
+      "tbMatKhau",
+      "Mật khẩu không được để trống"
+    ) &&
+    validation.checkPassword(
+      matKhau,
+      "tbMatKhau",
+      "mật Khẩu từ 6-10 ký tự (chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt)"
+    );
+
+  isValid &=
+    validation.checkEmpty(ngayLam, "tbNgay", "Ngày không được để trống") &&
+    validation.checkDate(ngayLam, "tbNgay", "định dạng mm/dd/yyyy");
+
+  isValid &=
+    validation.checkEmpty(
+      luongCoBan,
+      "tbLuongCB",
+      "Lương không được để trống"
+    ) &&
+    validation.checkSalary(
+      luongCoBan,
+      "tbLuongCB",
+      "Lương cơ bản 1 000 000 - 20 000 000"
+    );
+
+  isValid &= validation.checkPosition(
+    chucVu,
+    "tbChucVu",
+    "Chức vụ phải chọn chức vụ hợp lệ (Giám đốc, Trưởng Phòng, Nhân Viên)"
+  );
+
+  isValid &=
+    validation.checkEmpty(gioLam, "tbGiolam", "Giờ không được để trống") &&
+    validation.checkHoursWorked(
+      gioLam,
+      "tbGiolam",
+      "Số giờ làm trong tháng 80 - 200 giờ"
+    );
+
+  if (isValid) {
+    var nv = new NhanVien(
+      taiKhoan,
+      hoTen,
+      email,
+      matKhau,
+      ngayLam,
+      luongCoBan,
+      chucVu,
+      gioLam
+    );
+    nv.tinhTongLuong();
+    nv.xepLoaiNV();
+
+    var result = dsnv.capNhat(nv);
+    if (result) {
+      setLocalStorage();
+      hienThiTable(dsnv.mangNV);
+      resetForm();
+    } else {
+      alert("Cập nhật thất bại");
+    }
   }
 }
 getELE("btnCapNhat").onclick = capNhatNV;
