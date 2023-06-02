@@ -35,7 +35,7 @@ function DanhSachNhanVien() {
 
 DanhSachNhanVien.prototype.timKiemTheoLoai = function(loai) {
   var mangTK = [];
-  var loaiThuong = loai.toLowerCase().replace(/\s/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Chuẩn hóa từ khóa tìm kiếm
+  var loaiThuong = loai.toLowerCase().replace(/\s/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   this.mangNV.forEach(function(nv) {
       var xepLoaiThuong = nv.xepLoai.toLowerCase().replace(/\s/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 

@@ -1,18 +1,12 @@
 function Validation() {
   this.checkEmpty = function (value, spanID, message) {
     if (value === "") {
-      //!chưa hợp lệ
-      //thông báo lỗi
       document.getElementById(spanID).innerHTML = message;
       document.getElementById(spanID).style.display = "block";
-      //trả kết quả false
       return false;
     }
-
-    //?hợp lệ
     document.getElementById(spanID).innerHTML = "";
     document.getElementById(spanID).style.display = "none";
-    //trả kết quả true
     return true;
   };
 
@@ -31,39 +25,28 @@ function Validation() {
   };
 
   this.checkName = function (value, spanID, message) {
-    //biểu thức chính quy (regexp)
     var pattern =
       /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/;
 
     if (value.match(pattern)) {
-      //?hợp lệ
       document.getElementById(spanID).innerHTML = "";
       document.getElementById(spanID).style.display = "none";
-      //trả kết quả true
       return true;
     }
-    //!chưa hợp lệ
-    //thông báo lỗi
     document.getElementById(spanID).innerHTML = message;
     document.getElementById(spanID).style.display = "block";
-    //trả kết quả false
     return false;
   };
 
   this.checkEmail = function (value, spanID, message) {
     var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (value.match(pattern)) {
-      //?hợp lệ
       document.getElementById(spanID).innerHTML = "";
       document.getElementById(spanID).style.display = "none";
-      //trả kết quả true
       return true;
     }
-    //!chưa hợp lệ
-    //thông báo lỗi
     document.getElementById(spanID).innerHTML = message;
     document.getElementById(spanID).style.display = "block";
-    //trả kết quả false
     return false;
   };
 
@@ -89,8 +72,6 @@ function Validation() {
       var day = parseInt(dateParts[0]);
       var month = parseInt(dateParts[1]);
       var year = parseInt(dateParts[2]);
-
-      // Kiểm tra tính hợp lệ của ngày, tháng, năm
       if (
         year >= 1000 &&
         year <= 9999 &&
